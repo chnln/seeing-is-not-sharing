@@ -1,0 +1,3 @@
+Map landmark information:
+- Giver's map landmarks: start, caravan park, old mill, abandoned cottage, fenced meadow, fenced meadow, west lake, trig point, monument, nuclear test site, east lake, farmed land, finish
+- Follower's map landmarks: start, caravan park, picket fence, mill wheel, forest, abandoned cottage, fenced meadow, west lake, monument, golf course, east lake, farmed land

@@ -1,0 +1,8 @@
+Map landmark information:
+- Giver's map landmarks: start, caravan park, old mill, abandoned cottage, fenced meadow, fenced meadow, west lake, trig point, monument, nuclear test site, east lake, farmed land, finish
+- Follower's map landmarks: start, caravan park, picket fence, mill wheel, forest, abandoned cottage, fenced meadow, west lake, monument, golf course, east lake, farmed land
+Discrepancies between maps:
+- Landmarks on Giver's map ONLY (not on Follower's): finish, nuclear test site, old mill, trig point
+- Landmarks on Follower's map ONLY (not on Giver's): forest, golf course, mill wheel, picket fence
+- Landmarks appearing multiple times: fenced meadow appears 2 times on Giver's map
+- Shared landmarks (on both maps): abandoned cottage, caravan park, east lake, farmed land, fenced meadow, monument, start, west lake
