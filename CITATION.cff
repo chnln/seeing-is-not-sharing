@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "If you use this code, please cite the paper below."
-title: "Seeing Is Not Sharing: Some Vision-Language Models Overestimate Common Ground in Asymmetric Dialogue"
+message: "If you use the SINS dataset or release code, please cite it as below."
+title: "Seeing Is Not Sharing (SINS) Binary Common-Ground Judgment Dataset"
 authors:
   - family-names: Li
     given-names: Nan

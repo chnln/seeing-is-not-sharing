@@ -1,0 +1,11 @@
+SINS code is released under the MIT License.
+
+The Seeing Is Not Sharing (SINS) Binary Common-Ground Judgment Dataset is
+derived from chnln/grounded-misunderstandings-in-maptask (GMMT), distributed
+under CC BY 4.0. The local reconstruction helper adapts the public GMMT
+transcript reconstruction logic while requiring users to supply their own
+authorised MapTask material.
+
+This release does not redistribute MapTask dialogue context, maps, images,
+OCR, image-derived text, or source-transcript files. Reconstructed contexts
+are local working files and must not be uploaded as part of this release.

@@ -1,95 +1,113 @@
 # Seeing Is Not Sharing
 
-Code and prompt templates for the paper:
+**Seeing Is Not Sharing (SINS) Binary Common-Ground Judgment Dataset** is a
+binary judgment dataset for dialogue common ground. Each instance asks whether
+a referring expression is grounded in the dialogue state available to the two
+participants.
 
-> **Seeing Is Not Sharing: Some Vision-Language Models Overestimate Common Ground in Asymmetric Dialogue**
-> Nan Li, Albert Gatt, Massimo Poesio. SIGDIAL 2026.
+SINS is a downstream release of
+[Grounded Misunderstandings in MapTask (GMMT)](https://huggingface.co/datasets/chnln/grounded-misunderstandings-in-maptask).
+It preserves GMMT's transaction-level provenance while exposing a compact
+`yes`/`no` task:
 
-We evaluate whether vision-language models (VLMs) can judge *interpretation matching* —
-whether two participants in an information-asymmetric MapTask dialogue ground a reference
-expression to the *same* landmark — under systematic manipulations of dialogue context and
-map information (authentic maps, blank/shuffled controls, and textual map descriptions).
+- `yes`: the expression is aligned with the available common ground;
+- `no`: the expression is pending or misunderstood.
 
-This repository contains **code and prompt templates only**. The evaluation dataset and the
-raw MapTask materials are released separately (see [Data](#data)).
+## What Is Released
 
-## Repository layout
+The Hugging Face dataset contains one Parquet split with 13,077 instances and
+these columns:
 
-```
-config.sh              Central path configuration sourced by every run script
-prompts/templates/     Prompt template + per-condition template fillings
-scripts/               vLLM inference runners (prediction + calibration/logprobs)
-experiments/           Per-experiment run scripts (bash + SLURM) and experiment plans
-src/                   Analysis, calibration, and plotting helpers
-analysis/paper-targeted/  Notebooks that reproduce the paper figures
-```
+| Column | Description |
+| --- | --- |
+| `ref_id` | Stable referring-expression identifier from GMMT. |
+| `dialogue_id`, `map_id` | MapTask dialogue and map identifiers. |
+| `utt_id`, `transaction_id` | Target utterance and GMMT transaction provenance. |
+| `context_transaction_ids`, `end_utt_id_of_context` | Context-window provenance. |
+| `timed_unit_ids` | Timed-unit provenance for the target expression. |
+| `expression`, `status`, `gold_label` | Target expression, source status, and binary gold label. |
 
-### Experiments (`experiments/`)
+The SINS HF dataset does not contain dialogue context. It does not contain MapTask maps,
+images, OCR, or image-derived text. It also excludes generated
+prompts, model predictions, token log-probabilities, and external-source
+copies. Those omissions are deliberate: MapTask source material is not
+redistributed here.
 
-| Folder | Paper section |
-|---|---|
-| `map-information-modality/`   | Map-information conditions: authentic maps, blank/shuffled controls, textual map descriptions |
-| `additional-models/`          | Cross-model comparison (Qwen3-VL 2B/4B/8B, Gemma-3 4B/12B) + architecture-confound baseline |
-| `calibration-complete/`       | Calibration analysis (top-20 logprobs) |
-| `map-reading-sanity-check/`   | VLM map-reading sanity check (landmark listing + spatial description) |
-| `qwen3-vl_on_text-only/`      | Qwen3-VL text-only baseline |
+## Local Workflow
 
-Each folder has a `*_experiment-plan.md` describing the model × condition grid.
-`experiments/experiment-list.csv` is the master index.
-
-## Setup
-
-Requires Python ≥ 3.12. Dependencies are pinned in `uv.lock`:
+Install the lightweight dependencies with:
 
 ```bash
-uv sync
+uv sync --extra dev
 ```
 
-Inference additionally requires [vLLM](https://github.com/vllm-project/vllm) and a CUDA GPU
-(all reported runs used a single NVIDIA A100 80 GB).
+Build or verify the released table from a local GMMT checkout:
 
-## Reproduction pipeline
+```bash
+uv run python -m scripts.build_dataset \
+  --gmmt-dir /path/to/grounded-misunderstandings-in-maptask \
+  --out release/hf/data/train-00000-of-00001.parquet
+```
 
-This is a code release, so predictions and figures are **not** shipped. Regenerate them:
+To recover evaluation context locally, provide your own authorised MapTask
+timed-unit files together with GMMT. The reconstructed file is ignored by Git
+and must not be uploaded to Hugging Face:
 
-1. **Get the data** (see [Data](#data)) and place the interpretation-matching dataset and
-   MapTask map images where the experiment scripts expect them.
-2. **Generate prompts** — run the `create_prompts.ipynb` notebook in the relevant
-   `experiments/` folder to expand `prompts/templates/` into per-condition prompt files.
-3. **Run inference** — submit the experiment scripts, e.g.
-   ```bash
-   bash experiments/map-information-modality/exp_map-info-modality.sh \
-       --model Qwen/Qwen3-VL-8B-Instruct
-   ```
-   or via SLURM with the accompanying `slurm_*.sbatch`. The runner is
-   `scripts/exp_chat_vllm.py` (greedy decoding, constrained Yes/No output);
-   `scripts/exp_chat_vllm_calibration.py` additionally records top-20 logprobs.
-4. **Make figures** — run the notebooks under `analysis/paper-targeted/`.
+```bash
+uv run python -m scripts.reconstruct_contexts \
+  --instances release/hf/data/train-00000-of-00001.parquet \
+  --gmmt-dir /path/to/grounded-misunderstandings-in-maptask \
+  --maptask-tu-dir /path/to/timed-units_utt_filled \
+  --out contexts/ref_contexts.json
+```
 
-> **Note on paths.** All run scripts source [`config.sh`](config.sh), which defines four
-> base directories — `PROMPTS_DIR`, `PREDS_DIR`, `LOGITS_DIR`, `LOGS_DIR` — defaulting to a
-> local layout under the repo (`prompts/generated`, `outputs/predictions`, `outputs/logits`,
-> `logs`). Edit `config.sh` (or export those variables) to relocate inputs/outputs. The
-> `.sbatch` files additionally contain site-specific `#SBATCH --partition=...` and
-> environment-activation lines marked with `# EDIT:` — adjust them for your cluster.
+Render the paper prompt format locally:
 
-## Data
+```bash
+uv run python -m scripts.render_prompts \
+  --instances release/hf/data/train-00000-of-00001.parquet \
+  --contexts contexts/ref_contexts.json \
+  --condition no_maps \
+  --out outputs/prompts.jsonl
+```
 
-The evaluation dataset is **not** included here. It is the perspectivist annotation release
-of the HCRC MapTask corpus, released separately (CC-BY-4.0):
+`no_maps` requires no images. For `both_maps`, `giver_only`, or
+`follower_only`, pass `--map-dir` pointing to your local MapTask PNG files.
 
-> Nan Li, Albert Gatt, Massimo Poesio. *Grounded Misunderstandings in Asymmetric Dialogue:
-> A Perspectivist Annotation Scheme for MapTask.* LREC 2026, pp. 4988–5001.
+## Minimal Model Template
 
-The underlying MapTask dialogues and map images are from the
-[HCRC Map Task Corpus](https://groups.inf.ed.ac.uk/maptask/) (Anderson et al., 1991) and are
-subject to its original license; obtain them from the source rather than from this repository.
+The optional vLLM extra provides a constrained Yes/No template. It sends the
+rendered JSONL prompts to a model and writes only `{ref_id, judge}` records:
 
-## License
+```bash
+uv sync --extra vllm
+uv run python -m scripts.vllm_yes_no_template \
+  --prompts outputs/prompts.jsonl \
+  --model /path/to/model \
+  --out outputs/predictions.jsonl
+uv run python -m scripts.evaluate_predictions \
+  --instances release/hf/data/train-00000-of-00001.parquet \
+  --predictions outputs/predictions.jsonl
+```
 
-Code in this repository is released under the [MIT License](LICENSE). The separately released
-dataset is under CC-BY-4.0; MapTask source materials retain their original HCRC license.
+The template is intentionally a starting point, not a reproduction harness for
+all paper experiments.
 
-## Citation
+## Prompts and Paper Context
 
-See [`CITATION.cff`](CITATION.cff).
+[`prompts/prompt_template.py`](prompts/prompt_template.py) and
+[`prompts/prompt_fillings.json`](prompts/prompt_fillings.json) preserve the
+prompt assets used in the paper. [`prompts/textual_map_information.md`](prompts/textual_map_information.md)
+records two appendix textual-map examples for documentation only; it is not a
+dataset field and this repository does not generate that text from images.
+
+For the complete experimental account, cite the accompanying SIGDIAL paper.
+This repository releases the SINS dataset and prompt interfaces, not a full
+paper-reproduction pipeline.
+
+## License and Attribution
+
+Code is released under the [MIT License](LICENSE). The SINS dataset is released
+under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). It derives
+from GMMT, which is also CC BY 4.0; see [NOTICE](NOTICE) and
+[`dataset_card.md`](dataset_card.md) for provenance and restrictions.
