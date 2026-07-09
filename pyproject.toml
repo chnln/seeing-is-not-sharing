@@ -1,0 +1,15 @@
+[project]
+name = "seeing-is-not-sharing"
+version = "0.1.0"
+description = "Data and prompts for the SINS binary common-ground judgment task"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["pandas>=2.0", "pyarrow>=14"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+vllm = ["vllm>=0.6", "Pillow>=10"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

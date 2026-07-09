@@ -1,0 +1,46 @@
+{
+  "text_access_options": [
+    {
+      "id": "startUntilCurLine",
+      "label": "Dialogue context window",
+      "text": "You can read the dialogue from the beginning of the conversation up to and including the line that contains the target reference expression."
+    },
+    {
+      "id": "startUntilCurTranx",
+      "label": "Dialogue context window",
+      "text": "You can read the dialogue from the beginning of the conversation through the end of the transaction that contains the target reference expression (i.e., including the subsequent lines in that transaction after the target line)."
+    },
+    {
+      "id": "curTranxUntilCurLine",
+      "label": "Dialogue context window",
+      "text": "You can read only the current transaction: from the start of that transaction up to and including the line that contains the target reference expression."
+    },
+    {
+      "id": "curTranxUntilCurTranx",
+      "label": "Dialogue context window",
+      "text": "You can read only the current transaction in full: from the start of that transaction through its end (i.e., including the subsequent lines in that transaction after the target line)."
+    }
+  ],
+  "map_access_options": [
+    {
+      "id": "no_maps",
+      "label": "Map access",
+      "text": "No map images are provided."
+    },
+    {
+      "id": "both_maps",
+      "label": "Map access",
+      "text": "You are shown both the Giver's and the Follower's map images."
+    },
+    {
+      "id": "giver_only",
+      "label": "Map access",
+      "text": "You are shown only the Giver's map image."
+    },
+    {
+      "id": "follower_only",
+      "label": "Map access",
+      "text": "You are shown only the Follower's map image."
+    }
+  ]
+}
