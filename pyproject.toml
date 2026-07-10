@@ -14,5 +14,8 @@ vllm = ["vllm>=0.6", "Pillow>=10"]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools]
+packages = ["prompts", "scripts"]
+
 [tool.pytest.ini_options]
 pythonpath = ["."]

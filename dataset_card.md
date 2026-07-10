@@ -17,12 +17,13 @@ size_categories:
 
 ## Dataset Description
 
-SINS is a 13,077-instance binary common-ground judgment dataset derived from
-the public Grounded Misunderstandings in MapTask (GMMT) annotations. Each
-instance asks whether the giver and follower interpret the referring expression
-as the same landmark. Rows preserve identifiers and context-window provenance
-while mapping GMMT status to `gold_label`: `aligned` becomes `yes`; `pending`
-and `misunderstood` become `no`.
+SINS is a 13,077-instance binary common-ground judgment dataset for
+interpretation matching, derived from the public Grounded Misunderstandings in
+MapTask (GMMT) annotations. Each instance asks whether the giver and follower
+interpret the referring expression as the same landmark. Rows preserve
+identifiers and context-window provenance while mapping GMMT status to
+`gold_label`: `aligned` becomes `yes`; `pending` and `misunderstood` become
+`no`.
 
 ## Related Resources
 
@@ -33,6 +34,14 @@ and `misunderstood` become `no`.
 | GMMT code | [GitHub](https://github.com/chnln/grounded-misunderstandings-in-maptask) |
 | GMMT dataset | [Hugging Face](https://huggingface.co/datasets/chnln/grounded-misunderstandings-in-maptask) |
 | GMMT paper | [arXiv:2511.03718](https://arxiv.org/abs/2511.03718), LREC 2026 |
+
+## Load with Datasets
+
+```python
+from datasets import load_dataset
+
+ds = load_dataset("chnln/seeing-is-not-sharing", split="train")
+```
 
 ## Data Fields
 
@@ -45,9 +54,8 @@ The release contains `ref_id`, `dialogue_id`, `map_id`, `utt_id`,
 The SINS HF dataset does not contain dialogue context. It does not contain MapTask maps,
 images, OCR, or image-derived text. It also does not contain
 generated prompts, model predictions, log-probabilities, or copies of the
-underlying MapTask source files. Users who have authorised local access to
-MapTask may reconstruct context with the SINS code repository and a local GMMT
-checkout.
+underlying MapTask source files. Users who download MapTask themselves may
+reconstruct context with the SINS code repository and a local GMMT checkout.
 
 ## Licensing and Provenance
 

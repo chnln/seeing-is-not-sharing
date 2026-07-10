@@ -1,8 +1,9 @@
 # Seeing Is Not Sharing
 
 **Seeing Is Not Sharing (SINS) Binary Common-Ground Judgment Dataset** is a
-binary interpretation-matching dataset. Each instance asks whether the giver
-and follower interpret the referring expression as the same landmark.
+binary common-ground judgment dataset for interpretation matching. Each
+instance asks whether the giver and follower interpret the referring expression
+as the same landmark.
 
 SINS is a downstream release of Grounded Misunderstandings in MapTask (GMMT).
 It preserves GMMT's transaction-level provenance while exposing a compact
@@ -49,6 +50,19 @@ Install the lightweight dependencies with:
 uv sync --extra dev
 ```
 
+Or, with pip:
+
+```bash
+pip install -e ".[dev]"
+```
+
+Download the GMMT companion dataset, which supplies the annotation tables and
+reference-expression files used by the local scripts:
+
+```bash
+git clone https://huggingface.co/datasets/chnln/grounded-misunderstandings-in-maptask
+```
+
 Build or verify the released table from a local GMMT checkout:
 
 ```bash
@@ -59,13 +73,13 @@ uv run python -m scripts.build_dataset \
 
 To recover evaluation context locally, download the timed-unit files from the
 [HCRC MapTask corpus](https://groups.inf.ed.ac.uk/maptask/) and use them with
-GMMT:
+the GMMT checkout above:
 
 ```bash
 uv run python -m scripts.reconstruct_contexts \
   --instances release/hf/data/train-00000-of-00001.parquet \
   --gmmt-dir /path/to/grounded-misunderstandings-in-maptask \
-  --maptask-tu-dir /path/to/timed-units_utt_filled \
+  --maptask-tu-dir /path/to/maptaskv2-1/Data/timed-units \
   --out contexts/ref_contexts.json
 ```
 

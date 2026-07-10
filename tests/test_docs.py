@@ -48,8 +48,19 @@ def test_readme_uses_public_cli_arguments_without_git_implementation_details():
     assert "--out-dir release/hf" in readme
     assert "--text-access startuntilcurline" in readme
     assert "--map-access no_maps" in readme
+    assert "--maptask-tu-dir /path/to/maptaskv2-1/data/timed-units" in readme
+    assert "timed-units_utt_filled" not in readme
+    assert "git clone https://huggingface.co/datasets/chnln/grounded-misunderstandings-in-maptask" in readme
+    assert "pip install -e \".[dev]\"" in readme
     assert "--condition no_maps" not in readme
     assert "ignored by git" not in readme
+
+
+def test_dataset_card_shows_the_standard_hf_loading_path():
+    card = (Path(__file__).resolve().parents[1] / "dataset_card.md").read_text(encoding="utf-8")
+
+    assert "from datasets import load_dataset" in card
+    assert 'load_dataset("chnln/seeing-is-not-sharing", split="train")' in card
 
 
 def test_dataset_card_has_hf_license_and_notice_names_gmmt():
