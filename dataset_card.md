@@ -17,11 +17,11 @@ size_categories:
 
 ## Dataset Description
 
-SINS is a 13,077-instance binary common-ground judgment dataset for
-interpretation matching, derived from the public Grounded Misunderstandings in
-MapTask (GMMT) annotations. Each instance asks whether the giver and follower
-interpret the referring expression as the same landmark. Rows preserve
-identifiers and context-window provenance while mapping GMMT status to
+SINS is a 13,077-instance binary common-ground judgment (interpretation
+matching judgment) dataset, derived from the public Grounded Misunderstandings
+in MapTask (GMMT) annotations. Each instance asks whether the giver and
+follower interpret the referring expression as the same landmark. Rows
+preserve identifiers and context-window provenance while mapping GMMT status to
 `gold_label`: `aligned` becomes `yes`; `pending` and `misunderstood` become
 `no`.
 

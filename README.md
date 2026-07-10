@@ -1,7 +1,7 @@
 # Seeing Is Not Sharing
 
 **Seeing Is Not Sharing (SINS) Binary Common-Ground Judgment Dataset** is a
-binary common-ground judgment dataset for interpretation matching. Each
+binary common-ground judgment (interpretation matching judgment) dataset. Each
 instance asks whether the giver and follower interpret the referring expression
 as the same landmark.
 

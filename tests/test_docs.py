@@ -30,10 +30,13 @@ def test_public_documents_link_the_task_papers_and_related_releases():
     readme = (root / "README.md").read_text(encoding="utf-8")
     card = (root / "dataset_card.md").read_text(encoding="utf-8")
     task_definition = "whether the giver and follower interpret the referring expression as the same landmark"
+    dataset_name_expansion = "binary common-ground judgment (interpretation matching judgment) dataset"
     normalise = lambda text: " ".join(text.lower().split())
 
     assert task_definition in normalise(readme)
     assert task_definition in normalise(card)
+    assert dataset_name_expansion in normalise(readme)
+    assert dataset_name_expansion in normalise(card)
     assert "SIGDIAL 2026" in readme
     assert "SIGDIAL 2026" in card
     for link in (SINS_PAPER, GMMT_GITHUB, GMMT_HF, GMMT_PAPER):
