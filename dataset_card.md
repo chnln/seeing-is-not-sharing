@@ -18,10 +18,21 @@ size_categories:
 ## Dataset Description
 
 SINS is a 13,077-instance binary common-ground judgment dataset derived from
-the public Grounded Misunderstandings in MapTask (GMMT) annotations. Each row
-preserves identifiers and context-window provenance while mapping GMMT status
-to `gold_label`: `aligned` becomes `yes`; `pending` and `misunderstood` become
-`no`.
+the public Grounded Misunderstandings in MapTask (GMMT) annotations. Each
+instance asks whether the giver and follower interpret the referring expression
+as the same landmark. Rows preserve identifiers and context-window provenance
+while mapping GMMT status to `gold_label`: `aligned` becomes `yes`; `pending`
+and `misunderstood` become `no`.
+
+## Related Resources
+
+| Resource | Location |
+| --- | --- |
+| SINS code and prompts | [GitHub](https://github.com/chnln/seeing-is-not-sharing) |
+| SINS paper | [arXiv:2606.31719](https://arxiv.org/abs/2606.31719), to appear in SIGDIAL 2026 |
+| GMMT code | [GitHub](https://github.com/chnln/grounded-misunderstandings-in-maptask) |
+| GMMT dataset | [Hugging Face](https://huggingface.co/datasets/chnln/grounded-misunderstandings-in-maptask) |
+| GMMT paper | [arXiv:2511.03718](https://arxiv.org/abs/2511.03718), LREC 2026 |
 
 ## Data Fields
 
@@ -35,12 +46,29 @@ The SINS HF dataset does not contain dialogue context. It does not contain MapTa
 images, OCR, or image-derived text. It also does not contain
 generated prompts, model predictions, log-probabilities, or copies of the
 underlying MapTask source files. Users who have authorised local access to
-MapTask may reconstruct context with this repository's scripts and a local
-GMMT checkout; reconstructed files must remain local.
+MapTask may reconstruct context with the SINS code repository and a local GMMT
+checkout.
 
 ## Licensing and Provenance
 
 SINS is released under CC BY 4.0. It is derived from
-[`chnln/grounded-misunderstandings-in-maptask`](https://huggingface.co/datasets/chnln/grounded-misunderstandings-in-maptask),
+[GMMT](https://huggingface.co/datasets/chnln/grounded-misunderstandings-in-maptask),
 which is also CC BY 4.0. Please cite both the SINS paper and GMMT when using
 this dataset. See `NOTICE` in the code repository for details.
+
+## Citation
+
+SINS accompanies the following paper, which will appear in SIGDIAL 2026:
+
+```bibtex
+@misc{li2026seeing,
+  title = {Seeing Is Not Sharing: Some Vision-Language Models Overestimate Common Ground in Asymmetric Dialogue},
+  author = {Li, Nan and Gatt, Albert and Poesio, Massimo},
+  year = {2026},
+  eprint = {2606.31719},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CL},
+  url = {https://arxiv.org/abs/2606.31719},
+  note = {To appear in SIGDIAL 2026}
+}
+```

@@ -1,17 +1,25 @@
 # Seeing Is Not Sharing
 
 **Seeing Is Not Sharing (SINS) Binary Common-Ground Judgment Dataset** is a
-binary judgment dataset for dialogue common ground. Each instance asks whether
-a referring expression is grounded in the dialogue state available to the two
-participants.
+binary interpretation-matching dataset. Each instance asks whether the giver
+and follower interpret the referring expression as the same landmark.
 
-SINS is a downstream release of
-[Grounded Misunderstandings in MapTask (GMMT)](https://huggingface.co/datasets/chnln/grounded-misunderstandings-in-maptask).
+SINS is a downstream release of Grounded Misunderstandings in MapTask (GMMT).
 It preserves GMMT's transaction-level provenance while exposing a compact
 `yes`/`no` task:
 
-- `yes`: the expression is aligned with the available common ground;
-- `no`: the expression is pending or misunderstood.
+- `yes`: GMMT labels the interpretation as `aligned`;
+- `no`: GMMT labels it as `pending` or `misunderstood`.
+
+## Related Resources
+
+| Resource | Location |
+| --- | --- |
+| SINS dataset | [Hugging Face](https://huggingface.co/datasets/chnln/seeing-is-not-sharing) |
+| SINS paper | [arXiv:2606.31719](https://arxiv.org/abs/2606.31719), to appear in SIGDIAL 2026 |
+| GMMT code | [GitHub](https://github.com/chnln/grounded-misunderstandings-in-maptask) |
+| GMMT dataset | [Hugging Face](https://huggingface.co/datasets/chnln/grounded-misunderstandings-in-maptask) |
+| GMMT paper | [arXiv:2511.03718](https://arxiv.org/abs/2511.03718), LREC 2026 |
 
 ## What Is Released
 
@@ -46,12 +54,12 @@ Build or verify the released table from a local GMMT checkout:
 ```bash
 uv run python -m scripts.build_dataset \
   --gmmt-dir /path/to/grounded-misunderstandings-in-maptask \
-  --out release/hf/data/train-00000-of-00001.parquet
+  --out-dir release/hf
 ```
 
-To recover evaluation context locally, provide your own authorised MapTask
-timed-unit files together with GMMT. The reconstructed file is ignored by Git
-and must not be uploaded to Hugging Face:
+To recover evaluation context locally, download the timed-unit files from the
+[HCRC MapTask corpus](https://groups.inf.ed.ac.uk/maptask/) and use them with
+GMMT:
 
 ```bash
 uv run python -m scripts.reconstruct_contexts \
@@ -67,7 +75,8 @@ Render the paper prompt format locally:
 uv run python -m scripts.render_prompts \
   --instances release/hf/data/train-00000-of-00001.parquet \
   --contexts contexts/ref_contexts.json \
-  --condition no_maps \
+  --text-access startUntilCurLine \
+  --map-access no_maps \
   --out outputs/prompts.jsonl
 ```
 
@@ -104,6 +113,23 @@ dataset field and this repository does not generate that text from images.
 For the complete experimental account, cite the accompanying SIGDIAL paper.
 This repository releases the SINS dataset and prompt interfaces, not a full
 paper-reproduction pipeline.
+
+## Citation
+
+SINS accompanies the following paper, which will appear in SIGDIAL 2026:
+
+```bibtex
+@misc{li2026seeing,
+  title = {Seeing Is Not Sharing: Some Vision-Language Models Overestimate Common Ground in Asymmetric Dialogue},
+  author = {Li, Nan and Gatt, Albert and Poesio, Massimo},
+  year = {2026},
+  eprint = {2606.31719},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CL},
+  url = {https://arxiv.org/abs/2606.31719},
+  note = {To appear in SIGDIAL 2026}
+}
+```
 
 ## License and Attribution
 

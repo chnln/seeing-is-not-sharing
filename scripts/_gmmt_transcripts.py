@@ -199,6 +199,7 @@ def load_map_lookup(mapping_path: Path) -> Dict[str, str]:
 
 
 def default_map_mapping_path(repo_root: Path) -> Path:
+    # Vendored upstream helper; unused by the SINS adapter, which passes map_id directly.
     # The HF release flattens metadata under assets/; the GitHub release keeps
     # assets under annotations/. Prefer the HF layout, then fall back to GitHub.
     hf_layout = repo_root / "assets/map_trans_mapping.txt"

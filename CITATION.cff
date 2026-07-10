@@ -1,6 +1,7 @@
 cff-version: 1.2.0
 message: "If you use the SINS dataset or release code, please cite it as below."
 title: "Seeing Is Not Sharing (SINS) Binary Common-Ground Judgment Dataset"
+url: "https://arxiv.org/abs/2606.31719"
 authors:
   - family-names: Li
     given-names: Nan
@@ -20,3 +21,4 @@ preferred-citation:
       given-names: Massimo
   collection-title: "Proceedings of the 27th Annual Meeting of the Special Interest Group on Discourse and Dialogue (SIGDIAL)"
   year: 2026
+  url: "https://arxiv.org/abs/2606.31719"
