@@ -45,6 +45,22 @@ def test_public_documents_link_the_task_papers_and_related_releases():
         assert link in card
 
 
+def test_public_documents_recommend_and_define_both_citations():
+    root = Path(__file__).resolve().parents[1]
+
+    for path in (root / "README.md", root / "dataset_card.md"):
+        text = path.read_text(encoding="utf-8")
+
+        assert "cite both the SINS paper and the GMMT paper" in text
+        assert "@misc{li2026seeing," in text
+        assert "@inproceedings{li2026grounded," in text
+        assert "Bel, Núria" in text
+        assert "10.63317/59anbt78wyj7" in text
+        assert "li-etal-2026-grounded" not in text
+        assert "N{\\'u}ria" not in text
+        assert "abstract =" not in text.lower()
+
+
 def test_readme_uses_public_cli_arguments_without_git_implementation_details():
     readme = (Path(__file__).resolve().parents[1] / "README.md").read_text(encoding="utf-8").lower()
 

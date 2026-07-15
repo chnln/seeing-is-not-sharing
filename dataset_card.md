@@ -61,12 +61,17 @@ reconstruct context with the SINS code repository and a local GMMT checkout.
 
 SINS is released under CC BY 4.0. It is derived from
 [GMMT](https://huggingface.co/datasets/chnln/grounded-misunderstandings-in-maptask),
-which is also CC BY 4.0. Please cite both the SINS paper and GMMT when using
-this dataset. See `NOTICE` in the code repository for details.
+which is also CC BY 4.0. Citation details for both papers are provided below.
+See `NOTICE` in the code repository for details.
 
 ## Citation
 
-SINS accompanies the following paper, which will appear in SIGDIAL 2026:
+SINS builds on the GMMT data and annotation scheme introduced in our LREC 2026
+paper. If you use SINS, please cite both the SINS paper and the GMMT paper.
+
+### SINS: Task and Experiments
+
+To appear in SIGDIAL 2026.
 
 ```bibtex
 @misc{li2026seeing,
@@ -78,5 +83,24 @@ SINS accompanies the following paper, which will appear in SIGDIAL 2026:
   primaryClass = {cs.CL},
   url = {https://arxiv.org/abs/2606.31719},
   note = {To appear in SIGDIAL 2026}
+}
+```
+
+### GMMT: Data and Annotation Scheme
+
+Published at LREC 2026.
+
+```bibtex
+@inproceedings{li2026grounded,
+  title = {Grounded Misunderstandings in Asymmetric Dialogue: A Perspectivist Annotation Scheme for MapTask},
+  author = {Li, Nan and Gatt, Albert and Poesio, Massimo},
+  booktitle = {Proceedings of the Fifteenth Language Resources and Evaluation Conference (LREC 2026)},
+  month = {May},
+  year = {2026},
+  pages = {4988--5001},
+  address = {Palma, Mallorca, Spain},
+  publisher = {European Language Resources Association (ELRA)},
+  editor = {Piperidis, Stelios and Bel, Núria and van den Heuvel, Henk and Ide, Nancy and Krek, Simon and Toral, Antonio},
+  doi = {10.63317/59anbt78wyj7}
 }
 ```
