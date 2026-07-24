@@ -30,10 +30,10 @@ preserve identifiers and context-window provenance while mapping GMMT status to
 | Resource | Location |
 | --- | --- |
 | SINS code and prompts | [GitHub](https://github.com/chnln/seeing-is-not-sharing) |
-| SINS paper | [arXiv:2606.31719](https://arxiv.org/abs/2606.31719), to appear in SIGDIAL 2026 |
+| SINS paper | [ACL Anthology](https://aclanthology.org/2026.sigdial-1.49/) · [arXiv:2606.31719](https://arxiv.org/abs/2606.31719), SIGDIAL 2026 |
 | GMMT code | [GitHub](https://github.com/chnln/grounded-misunderstandings-in-maptask) |
 | GMMT dataset | [Hugging Face](https://huggingface.co/datasets/chnln/grounded-misunderstandings-in-maptask) |
-| GMMT paper | [arXiv:2511.03718](https://arxiv.org/abs/2511.03718), LREC 2026 |
+| GMMT paper | [LREC Proceedings](https://lrec.elra.info/lrec2026-main-392) · [arXiv:2511.03718](https://arxiv.org/abs/2511.03718), LREC 2026 |
 
 ## Load with Datasets
 
@@ -71,20 +71,25 @@ paper. If you use SINS, please cite both the SINS paper and the GMMT paper.
 
 ### SINS: Task and Experiments
 
-To appear in SIGDIAL 2026.
+Published at SIGDIAL 2026.
 
 ```bibtex
-@misc{li2026seeing,
+@inproceedings{li2026seeing,
   title = {Seeing Is Not Sharing: Some Vision-Language Models Overestimate Common Ground in Asymmetric Dialogue},
   author = {Li, Nan and Gatt, Albert and Poesio, Massimo},
+  editor = {Choi, Jinho D. and Chen, Yun-Nung and Funakoshi, Kotaro and Emami, Ali},
+  booktitle = {Proceedings of the 27th Annual Meeting of the Special Interest Group on Discourse and Dialogue},
+  month = aug,
   year = {2026},
-  eprint = {2606.31719},
-  archivePrefix = {arXiv},
-  primaryClass = {cs.CL},
-  url = {https://arxiv.org/abs/2606.31719},
-  note = {To appear in SIGDIAL 2026}
+  address = {Atlanta, Georgia, USA},
+  publisher = {Association for Computational Linguistics},
+  url = {https://aclanthology.org/2026.sigdial-1.49/},
+  pages = {694--710}
 }
 ```
+
+Paper: [ACL Anthology](https://aclanthology.org/2026.sigdial-1.49/) ·
+[arXiv preprint](https://arxiv.org/abs/2606.31719).
 
 ### GMMT: Data and Annotation Scheme
 
@@ -101,6 +106,10 @@ Published at LREC 2026.
   address = {Palma, Mallorca, Spain},
   publisher = {European Language Resources Association (ELRA)},
   editor = {Piperidis, Stelios and Bel, Núria and van den Heuvel, Henk and Ide, Nancy and Krek, Simon and Toral, Antonio},
+  url = {https://lrec.elra.info/lrec2026-main-392},
   doi = {10.63317/59anbt78wyj7}
 }
 ```
+
+Paper: [LREC Proceedings](https://lrec.elra.info/lrec2026-main-392) ·
+[arXiv preprint](https://arxiv.org/abs/2511.03718).

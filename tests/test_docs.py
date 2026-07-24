@@ -3,10 +3,12 @@ from pathlib import Path
 
 SINS_GITHUB = "https://github.com/chnln/seeing-is-not-sharing"
 SINS_HF = "https://huggingface.co/datasets/chnln/seeing-is-not-sharing"
-SINS_PAPER = "https://arxiv.org/abs/2606.31719"
+SINS_PAPER = "https://aclanthology.org/2026.sigdial-1.49/"
+SINS_PREPRINT = "https://arxiv.org/abs/2606.31719"
 GMMT_GITHUB = "https://github.com/chnln/grounded-misunderstandings-in-maptask"
 GMMT_HF = "https://huggingface.co/datasets/chnln/grounded-misunderstandings-in-maptask"
-GMMT_PAPER = "https://arxiv.org/abs/2511.03718"
+GMMT_PAPER = "https://lrec.elra.info/lrec2026-main-392"
+GMMT_PREPRINT = "https://arxiv.org/abs/2511.03718"
 
 
 def test_readme_and_dataset_card_state_non_redistribution_boundary():
@@ -39,9 +41,17 @@ def test_public_documents_link_the_task_papers_and_related_releases():
     assert dataset_name_expansion in normalise(card)
     assert "SIGDIAL 2026" in readme
     assert "SIGDIAL 2026" in card
-    for link in (SINS_PAPER, GMMT_GITHUB, GMMT_HF, GMMT_PAPER):
+    for link in (SINS_PAPER, SINS_PREPRINT, GMMT_GITHUB, GMMT_HF, GMMT_PAPER, GMMT_PREPRINT):
         assert link in readme
-    for link in (SINS_GITHUB, SINS_PAPER, GMMT_GITHUB, GMMT_HF, GMMT_PAPER):
+    for link in (
+        SINS_GITHUB,
+        SINS_PAPER,
+        SINS_PREPRINT,
+        GMMT_GITHUB,
+        GMMT_HF,
+        GMMT_PAPER,
+        GMMT_PREPRINT,
+    ):
         assert link in card
 
 
@@ -52,13 +62,28 @@ def test_public_documents_recommend_and_define_both_citations():
         text = path.read_text(encoding="utf-8")
 
         assert "cite both the SINS paper and the GMMT paper" in text
-        assert "@misc{li2026seeing," in text
+        assert "@inproceedings{li2026seeing," in text
         assert "@inproceedings{li2026grounded," in text
+        assert f"url = {{{SINS_PAPER}}}" in text
+        assert f"url = {{{GMMT_PAPER}}}" in text
+        assert "pages = {694--710}" in text
         assert "Bel, Núria" in text
         assert "10.63317/59anbt78wyj7" in text
+        assert "@misc{li2026seeing," not in text
+        assert "archivePrefix" not in text
+        assert "To appear in SIGDIAL 2026" not in text
         assert "li-etal-2026-grounded" not in text
         assert "N{\\'u}ria" not in text
         assert "abstract =" not in text.lower()
+
+
+def test_citation_cff_uses_the_published_sins_paper():
+    cff = (Path(__file__).resolve().parents[1] / "CITATION.cff").read_text(encoding="utf-8")
+
+    assert cff.count(f'url: "{SINS_PAPER}"') == 2
+    assert SINS_PREPRINT not in cff
+    assert "start: 694" in cff
+    assert "end: 710" in cff
 
 
 def test_readme_uses_public_cli_arguments_without_git_implementation_details():
