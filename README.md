@@ -1,5 +1,10 @@
 # Seeing Is Not Sharing
 
+[![arXiv](https://img.shields.io/badge/arXiv-2606.31719-b31b1b?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2606.31719)
+[![Hugging Face Paper](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face%20Paper-FFD21E)](https://huggingface.co/papers/2606.31719)
+[![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face%20Dataset-FFD21E)](https://huggingface.co/datasets/chnln/seeing-is-not-sharing)
+[![Demo: MapTask Explorer](https://img.shields.io/badge/Demo-MapTask%20Explorer-2563EB)](https://chnln.github.io/maptask-vis/explorer.html)
+
 **Seeing Is Not Sharing (SINS) Binary Common-Ground Judgment Dataset** is a
 binary common-ground judgment (interpretation matching judgment) dataset. Each
 instance asks whether the giver and follower interpret the referring expression
